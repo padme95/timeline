@@ -1,0 +1,112 @@
+:root {
+  --lane-height: 36px;
+  --lane-gap: 8px;
+  --tick-color: #e5e7eb;
+  --tick-strong: #cbd5e1;
+  --text: #0f172a;
+  --muted: #64748b;
+  --bar-bg: #eef2ff;
+  --bar-border: #6366f1;
+  --today: #ef4444;
+  --px-per-day: 16px;
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color: var(--text);
+  background: #fff;
+}
+
+#root { padding: 12px; }
+
+.tl-controls {
+  display: flex; gap: 10px; align-items: center; flex-wrap: wrap;
+  padding: 8px 12px;
+  border: 1px solid #cbd5e1; border-radius: 10px; background: #fff;
+  margin-bottom: 10px;
+}
+.tl-controls button {
+  height: 32px; min-width: 32px;
+  border: 1px solid #cbd5e1; background: #fff; border-radius: 8px; cursor: pointer;
+}
+.tl-controls input[type="range"] { width: 220px; }
+.tl-controls .chk { display: flex; gap: 8px; align-items: center; color: var(--muted); }
+.hint { color: var(--muted); font-size: 12px; }
+
+.timeline {
+  position: relative;
+  border: 1px solid #cbd5e1; border-radius: 12px;
+  overflow: auto; background: #f8fafc;
+}
+
+.tl-header {
+  position: sticky; top: 0; z-index: 2;
+  background: #fff; border-bottom: 1px solid #cbd5e1;
+}
+.tl-scale {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: var(--col-width, 16px);
+}
+.tick {
+  border-right: 1px solid var(--tick-color);
+  text-align: center; padding: 4px 0;
+  font-size: 12px; color: var(--muted);
+  white-space: nowrap;
+}
+.tick.strong { border-right: 1px solid var(--tick-strong); color: #334155; }
+
+.lanes {
+  position: relative;
+  padding: 8px;
+}
+.lane {
+  position: relative;
+  height: var(--lane-height);
+  margin-bottom: var(--lane-gap);
+  border-bottom: 1px dashed #e5e7eb;
+}
+
+.bar {
+  position: absolute;
+  top: 4px;
+  height: calc(var(--lane-height) - 8px);
+  background: var(--bar-bg);
+  border: 2px solid var(--bar-border);
+  border-radius: 8px;
+  display: flex; align-items: center; gap: 8px;
+  cursor: grab; user-select: none; overflow: hidden;
+  padding: 0 8px;
+  z-index: 1;
+}
+.bar:active { cursor: grabbing; }
+
+.handle {
+  position: absolute; top: 0; width: 8px; height: 100%;
+  cursor: ew-resize; background: transparent;
+}
+.handle.left { left: 0; }
+.handle.right { right: 0; }
+
+.label {
+  display: flex; gap: 6px; align-items: baseline;
+  overflow: hidden;
+}
+.name {
+  font-size: 12px;
+  white-space: nowrap; text-overflow: ellipsis; overflow: hidden;
+  max-width: 200px;
+}
+.dates {
+  font-size: 11px; color: var(--muted);
+  white-space: nowrap;
+}
+
+.today {
+  position: absolute; top: 0; bottom: 0; width: 0;
+  border-left: 2px dashed var(--today);
+  z-index: 0;
+}
